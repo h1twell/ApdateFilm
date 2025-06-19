@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ApdateFilmUser.Views.DirectorPage"
+             xmlns:vm="clr-namespace:ApdateFilmUser.ViewModels"
+             Title="Director Details">
+    <ContentPage.Background>
+        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+            <GradientStop Color="#02396C" Offset="0.0" />
+            <GradientStop Color="#046FD2" Offset="1" />
+        </LinearGradientBrush>
+    </ContentPage.Background>
+
+    <ScrollView>
+        <CollectionView ItemsSource="{Binding Directors}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Grid Margin="20">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <!-- Director Photo -->
+                        <Frame Grid.Row="0" 
+                   HeightRequest="200" 
+                   WidthRequest="150" 
+                   HorizontalOptions="Center"
+                   CornerRadius="10"
+                   Padding="0"
+                   Margin="0,0,0,20">
+                            <Image Source="{Binding Photo}" 
+                       Aspect="AspectFill"
+                       BackgroundColor="LightGray"/>
+                        </Frame>
+
+                        <!-- Name and Surname -->
+                        <StackLayout Orientation="Horizontal"
+                                     Grid.Row="1">
+                            <Label Grid.Row="1" 
+                                   Text="{Binding Name}"
+                                   FontSize="24"
+                                   FontAttributes="Bold"
+                                   TextColor="White"
+                                   HorizontalOptions="Center"
+                                   Margin="0,0,0,10"/>
+                            <Label Grid.Row="1" 
+                                   Text="{Binding Surname}"
+                                   FontSize="24"
+                                   FontAttributes="Bold"
+                                   TextColor="White"
+                                   Margin="5,0,0,10"
+                                   HorizontalOptions="Center"/>
+                        </StackLayout>
+                        
+
+                        <!-- Birthday -->
+                        <Label Grid.Row="2" 
+                   Text="{Binding Birthday, StringFormat='Born: {0:MMMM d, yyyy}'}" 
+                   FontSize="16"
+                   TextColor="#E0E0E0"
+                   HorizontalOptions="Center"
+                   Margin="0,0,0,15"/>
+
+                        <!-- Bio Title -->
+                        <Label Grid.Row="3" 
+                   Text="Biography:" 
+                   FontSize="18"
+                   FontAttributes="Bold"
+                   TextColor="White"
+                   Margin="0,0,0,5"/>
+
+                        <!-- Bio Content -->
+                        <Label Grid.Row="4" 
+                   Text="{Binding Bio}" 
+                   FontSize="14"
+                   TextColor="#E0E0E0"
+                   Margin="0,0,0,20"/>
+
+                        <!-- Optional: Films directed or other info -->
+                        <StackLayout Grid.Row="5" Orientation="Vertical" Spacing="10">
+                            <!-- You could add a list of films here if you have that data -->
+                        </StackLayout>
+                        <CollectionView ItemsSource="{Binding Media}"
+       SelectionMode="Single"
+       HeightRequest="240" Grid.Row="6">
+                            <CollectionView.ItemsLayout>
+                                <LinearItemsLayout Orientation="Horizontal" ItemSpacing="15"/>
+                            </CollectionView.ItemsLayout>
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <Frame WidthRequest="150"
+           HeightRequest="220"
+           CornerRadius="10"
+           Padding="0">
+                                        <Frame.GestureRecognizers>
+                                            <TapGestureRecognizer 
+                    Command="{Binding Source={RelativeSource AncestorType={x:Type vm:DirectorsViewModel}}, Path=MediaSelectedCommand}"
+                    CommandParameter="{Binding .}"/>
+                                        </Frame.GestureRecognizers>
+                                        <Grid>
+                                            <Image Source="{Binding Preview}"
+                   Aspect="Fill"
+                   HeightRequest="220"/>
+                                            <BoxView Color="#80000000"
+                     HeightRequest="50"
+                     VerticalOptions="End"/>
+                                            <Label Text="{Binding Name}"
+
+                   FontSize="14"
+                   TextColor="White"
+                   MaxLines="2"
+                   LineBreakMode="TailTruncation"
+                   Margin="0,0,0,15"
+                   HorizontalOptions="Center"
+                   VerticalOptions="End"/>
+                                        </Grid>
+                                    </Frame>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </ScrollView>
+</ContentPage>

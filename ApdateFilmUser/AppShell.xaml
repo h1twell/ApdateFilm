@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="ApdateFilmUser.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:ApdateFilmUser"
+    xmlns:view="clr-namespace:ApdateFilmUser.Views"
+    xmlns:authview="clr-namespace:ApdateFilmUser.Views.AuthViews"
+    Shell.FlyoutBehavior="Disabled"
+    Shell.NavBarIsVisible="False"
+    Title="ApdateFilmUser">
+
+    <TabBar>
+        <ShellContent 
+            Icon="catalog.png"
+            Title="Каталог"
+            ContentTemplate="{DataTemplate view:CatalogPage }"/>
+        <ShellContent 
+            Icon="images//profile.png"
+            Title="Профиль"
+            ContentTemplate="{DataTemplate authview:ProfilePage }"/>
+        <ShellContent 
+            Icon="favorites.png"
+            Title="Избранное"
+            ContentTemplate="{DataTemplate view:FavoritesPage }"/>
+    </TabBar>
+
+</Shell>

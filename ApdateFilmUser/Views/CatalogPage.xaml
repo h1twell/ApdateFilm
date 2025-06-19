@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ApdateFilmUser.Views.CatalogPage"
+             xmlns:vm="clr-namespace:ApdateFilmUser.ViewModels"
+             xmlns:converters="clr-namespace:ApdateFilmUser.Convertes"
+             Title="Каталог">
+    
+    <ContentPage.Background>
+        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+            <GradientStop Color="#02396C" Offset="0.0" />
+            <GradientStop Color="#046FD2" Offset="1" />
+        </LinearGradientBrush>
+    </ContentPage.Background>
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:ScaleConverter x:Key="ScaleConverter"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    
+    <ContentPage.BindingContext>
+        <vm:CatalogViewModel/>
+    </ContentPage.BindingContext>
+
+    <ScrollView>
+        <Grid RowDefinitions="80,auto, *">
+            <Grid>
+                <Label Text="SmotriKino" Margin="10,10,0,0"
+               FontSize="25" FontAttributes="Italic"/>
+                <StackLayout Orientation="Horizontal"
+                     Margin="40,50,0,0"
+                     Spacing="10"
+                     HeightRequest="30">
+                    <Button Text="Рекомендуем" TextColor="White"
+                    WidthRequest="120"
+                    Padding="5"
+                    CornerRadius="15"
+                    Background="#001346"/>
+                    <Button Text="Категории"
+                    WidthRequest="100"
+                    CornerRadius="15"
+                    Padding="5"
+                    TextColor="White"
+                    Background="Transparent"
+                    Clicked="Button_Clicked"/>
+                </StackLayout>
+            </Grid>
+
+            <VerticalStackLayout Margin="0,20,0,0" Grid.Row="1">
+                <CarouselView 
+    HeightRequest="430" 
+    PeekAreaInsets="60"  
+    ItemsSource="{Binding Medias}" 
+    IndicatorView="{x:Reference indicator}"
+    CurrentItemChanged="OnCurrentItemChanged">
+                    <CarouselView.ItemTemplate>
+                        <DataTemplate>
+                            <Frame Margin="10"
+                HasShadow="True" 
+                BorderColor="Gray" 
+                Padding="0" 
+                CornerRadius="10"
+                HeightRequest="380"
+                Scale="{Binding IsSelected, Converter={StaticResource ScaleConverter}}">
+
+                                <Frame.GestureRecognizers>
+                                    <TapGestureRecognizer 
+    Command="{Binding Source={RelativeSource AncestorType={x:Type vm:CatalogViewModel}}, Path=TapMediaCommand}"
+    CommandParameter="{Binding .}"/>
+                                </Frame.GestureRecognizers>
+
+                                <VisualStateManager.VisualStateGroups>
+                                    <VisualStateGroup x:Name="SelectionStates">
+                                        <VisualState x:Name="Selected">
+                                            <VisualState.Setters>
+                                                <Setter Property="Scale" Value="1.1" />
+                                                <!-- Увеличение центрального элемента -->
+                                            </VisualState.Setters>
+                                        </VisualState>
+                                        <VisualState x:Name="Unselected">
+                                            <VisualState.Setters>
+                                                <Setter Property="Scale" Value="0.9" />
+                                                <!-- Уменьшение боковых элементов -->
+                                            </VisualState.Setters>
+                                        </VisualState>
+                                    </VisualStateGroup>
+                                </VisualStateManager.VisualStateGroups>
+
+                                <Image Source="{Binding Preview}" Aspect="Fill"/>
+                            </Frame>
+                        </DataTemplate>
+                    </CarouselView.ItemTemplate>
+                </CarouselView>
+
+                <IndicatorView 
+    HorizontalOptions="Center" 
+    Margin="0,20,0,10"
+    x:Name="indicator" 
+    IndicatorColor="Gray" 
+    SelectedIndicatorColor="White"/>
+            </VerticalStackLayout>
+
+            <Grid RowDefinitions="auto,*" Margin="0,0,0,10"
+          Grid.Row="2">
+                <Label Margin="20,0,10,0"  TextColor="White"
+               Text="Лучшее сейчас"/>
+                <CollectionView ItemsSource="{Binding Medias}" Margin="10,0,0,0"
+                        Grid.Row="1">
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout Orientation="Horizontal" ItemSpacing="5"/>
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Frame HasShadow="True" BorderColor="Gray" Padding="0" CornerRadius="10"
+                       HeightRequest="170" WidthRequest="130">
+                                <Frame.GestureRecognizers>
+                                    <TapGestureRecognizer 
+    Command="{Binding Source={RelativeSource AncestorType={x:Type vm:CatalogViewModel}}, Path=TapMediaCommand}"
+    CommandParameter="{Binding .}"/>
+                                </Frame.GestureRecognizers>
+
+                                <Image Source="{Binding Preview}" InputTransparent="True" Aspect="Fill"/>
+                            </Frame>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </Grid>
+        </Grid>
+    </ScrollView>
+    
+</ContentPage>

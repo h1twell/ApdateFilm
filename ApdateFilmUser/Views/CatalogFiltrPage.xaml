@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ApdateFilmUser.Views.CatalogFiltrPage"
+             xmlns:vm="clr-namespace:ApdateFilmUser.ViewModels"
+             Title="CatalogFiltrPage">
+    <ContentPage.Background>
+        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+            <GradientStop Color="#02396C" Offset="0.0" />
+            <GradientStop Color="#046FD2" Offset="1" />
+        </LinearGradientBrush>
+    </ContentPage.Background>
+
+    <ContentPage.BindingContext>
+        <vm:CatalogFiltrViewModel/>
+    </ContentPage.BindingContext>
+
+    <Grid RowDefinitions="80, 30, auto, *">
+        <!-- Шапка с логотипом и поиском -->
+        <Grid ColumnDefinitions="auto, *, auto">
+            <Label Text="SmotriKino" 
+           Margin="10,0,0,0"
+           FontSize="25" 
+           FontAttributes="Italic"
+           VerticalOptions="Center"/>
+            <SearchBar x:Name="searchBar"
+               Grid.Column="1"
+               Placeholder="Поиск по названию..."
+               Text="{Binding SearchText}"
+               WidthRequest="250"
+               VerticalOptions="Center"
+               HorizontalOptions="End"
+               SearchCommand="{Binding PerformSearchCommand}"/>
+        </Grid>
+        <!-- Кнопки категорий -->
+        <StackLayout Orientation="Horizontal"
+             Grid.Row="1"
+         Margin="40,0,0,0"
+         Spacing="10"
+         HeightRequest="30">
+            <Button Text="Рекомендуем" 
+        WidthRequest="120"
+        Padding="5"
+        CornerRadius="15"
+        TextColor="White"
+                    Clicked="Button_Clicked"
+        Background="Transparent"/>
+            <Button Text="Категории"
+        WidthRequest="100"
+        CornerRadius="15"
+        Padding="5"
+        TextColor="White"
+        Background="#001346"/>
+        </StackLayout>
+
+        <!-- Фильтры -->
+        <Grid Grid.Row="2" 
+          Margin="10" 
+          HeightRequest="40"
+          ColumnDefinitions="*,*,*">
+            <Button Margin="5,0,5,0" 
+                Grid.Column="0" 
+                Padding="0"
+                CornerRadius="15"
+                Text="Год" 
+                Command="{Binding SetFiltrDateCommand}"/>
+            <Button Margin="5,0,5,0" 
+                Grid.Column="1" 
+                Padding="0"
+                CornerRadius="15"
+                Text="Студия" 
+                Command="{Binding SetFiltrStudioCommand}"/>
+            <Button Margin="5,0,5,0" 
+                Grid.Column="2" 
+                Padding="0"
+                CornerRadius="15"
+                Text="Жанр" 
+                Command="{Binding SetFiltrGenreCommand}"/>
+        </Grid>
+
+        <!-- Основной контент -->
+        <ScrollView Grid.Row="3">
+            <Grid RowDefinitions="auto, auto, auto, auto">
+                <Label Text="Сериалы:" 
+                   Margin="25,10"
+                   FontAttributes="Bold"
+                   FontSize="20"
+                   Grid.Row="0"/>
+
+                <CollectionView Grid.Row="1" 
+                           ItemsSource="{Binding SerialsFiltr}"
+                           Margin="10,0,10,10">
+                    <CollectionView.ItemsLayout>
+                        <GridItemsLayout Span="3" Orientation="Vertical" />
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Frame CornerRadius="10" 
+                               BackgroundColor="Transparent"
+                               BorderColor="Transparent"
+                               Padding="0" 
+                               Margin="5"
+                               HeightRequest="180"
+                               HasShadow="False"
+                               IsClippedToBounds="True">
+                                <Frame.GestureRecognizers>
+                                    <TapGestureRecognizer 
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type vm:CatalogFiltrViewModel}}, Path=TapMediaCommand}"
+                                    CommandParameter="{Binding .}"/>
+                                </Frame.GestureRecognizers>
+                                <Image Source="{Binding Preview}"
+                                   Aspect="AspectFill"/>
+                            </Frame>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+
+                <Label Text="Фильмы:" 
+                   Margin="25,10"
+                   FontAttributes="Bold"
+                   FontSize="20" 
+                   Grid.Row="2"/>
+
+                <CollectionView Grid.Row="3"
+                           ItemsSource="{Binding FilmsFiltr}"
+                           Margin="10,0,10,10">
+                    <CollectionView.ItemsLayout>
+                        <GridItemsLayout Span="3" Orientation="Vertical" />
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Frame CornerRadius="10" 
+                               BackgroundColor="Transparent"
+                               BorderColor="Transparent"
+                               Padding="0" 
+                               Margin="5"
+                               HeightRequest="180"
+                               HasShadow="False"
+                               IsClippedToBounds="True">
+                                <Frame.GestureRecognizers>
+                                    <TapGestureRecognizer 
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type vm:CatalogFiltrViewModel}}, Path=TapMediaCommand}"
+                                    CommandParameter="{Binding .}"/>
+                                </Frame.GestureRecognizers>
+                                <Image Source="{Binding Preview}"
+                                   Aspect="AspectFill"/>
+                            </Frame>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </Grid>
+        </ScrollView>
+    </Grid>
+</ContentPage>

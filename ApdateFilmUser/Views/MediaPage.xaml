@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ApdateFilmUser.Views.MediaPage"
+             Title="MediaPage">
+
+    <ContentPage.Background>
+        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+            <GradientStop Color="#02396C" Offset="0.0" />
+            <GradientStop Color="#046FD2" Offset="1" />
+        </LinearGradientBrush>
+    </ContentPage.Background>
+
+    <ScrollView>
+        <VerticalStackLayout Spacing="10">
+            <!-- Изображение фильма (заменено на WebView) -->
+            <Grid>
+                <WebView x:Name="TrailerView" Source="{Binding ContentURL}" Margin="0,-110,0,0"
+ HeightRequest="340"/>
+            </Grid>
+            
+
+            <!-- Заголовок (без Frame) -->
+            <VerticalStackLayout Padding="10">
+                <Label Text="{Binding Name}"
+               FontSize="24"
+               FontAttributes="Bold"
+               TextColor="White" />
+                <Label Text="{Binding Release, StringFormat='{0:yyyy}'}"
+               FontSize="18"
+               TextColor="White" />
+            </VerticalStackLayout>
+
+            <!-- Описание (без Frame) -->
+            <Label Text="{Binding Description}"
+           FontSize="14"
+           TextColor="White"
+           Padding="10" />
+
+            <!-- Дополнительная информация (без Frame) -->
+            <VerticalStackLayout Padding="10">
+                <Grid ColumnDefinitions="auto, *">
+                    <Label Text="Жанр: "
+                           FontSize="16"
+                           TextColor="White" />
+                    <CollectionView ItemsSource="{Binding Genres}"
+                                    HorizontalScrollBarVisibility="Always"
+                                    Grid.Column="1"
+                ItemsLayout="HorizontalList">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Frame Padding="3"
+                   Background="#003587"
+                   BorderColor="Transparent">
+                                    <Label Text="{Binding Name}"
+                       TextColor="White"/>
+                                </Frame>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </Grid>
+
+                <Label Text="Год производства: 2021"
+               FontSize="16"
+               TextColor="White" />
+                <Label Text="Страна: Ирландия"
+               FontSize="16"
+               TextColor="White" />
+            </VerticalStackLayout>
+
+            <!-- Кнопка воспроизведения и выбора серий -->
+            <Grid ColumnDefinitions="*,*">
+                <Button Text="Назад" x:Name="GoBack"
+                        BackgroundColor="#2563EB"
+                        TextColor="White"
+                        FontSize="18"
+                        CornerRadius="10"
+                        Margin="20,10" 
+                        Clicked="GoBack_Clicked"/>
+                <Button Text="Выбрать" x:Name="SelectSeries"
+                        Grid.Column="1"
+                        BackgroundColor="#2563EB"
+                        TextColor="White"
+                        FontSize="18"
+                        CornerRadius="10"
+                        Margin="20,10" 
+                        Clicked="SelectSeries_Clicked"/>
+            </Grid>
+            <!-- Нижние элементы -->
+            <HorizontalStackLayout HorizontalOptions="Center" Spacing="20">
+                <StackLayout>
+                    <Image x:Name="CheckFavorite" WidthRequest="48" HeightRequest="48">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
+                        </Image.GestureRecognizers>
+                    </Image>
+                    <Label Text="В избранном"
+                           Opacity="0.7"/>
+                </StackLayout>
+                <StackLayout>
+                    <Label Text="{Binding AgeRating}"
+                           Opacity="1"
+                           FontSize="30"/>
+                </StackLayout>
+                <StackLayout>
+                    <Image Source="actorsicon.png">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped_1"/>
+                        </Image.GestureRecognizers>
+                    </Image>
+                    <Label Text="Актерский состав"
+                           Opacity="0.7"/>
+                </StackLayout>
+                <StackLayout>
+                    <Image Source="director.png" HeightRequest="48">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped_2"/>
+                        </Image.GestureRecognizers>
+                    </Image>
+                    <Label Text="Режисёр"
+           Opacity="0.7"/>
+                </StackLayout>
+            </HorizontalStackLayout>
+
+            <StackLayout Padding="10">
+                <Label Text="Кадры:"/>
+                <CollectionView ItemsSource="{Binding Footages}"
+                HorizontalScrollBarVisibility="Never"
+                VerticalScrollBarVisibility="Never"
+                HorizontalOptions="Center">
+
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout Orientation="Horizontal" ItemSpacing="15" />
+                    </CollectionView.ItemsLayout>
+
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Frame HasShadow="True"
+                   CornerRadius="10"
+                   Padding="0"
+                   HeightRequest="120"
+                   WidthRequest="150"
+                   BackgroundColor="Transparent">
+
+                                <Image Source="{Binding Photo}"
+                       Aspect="AspectFill"
+                       HeightRequest="120"
+                       WidthRequest="150"/>
+
+                            </Frame>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+
+                </CollectionView>
+            </StackLayout>
+            
+            <Frame BackgroundColor="Transparent" Margin="5">
+                <Grid RowDefinitions="*, auto, auto, auto">
+                    <!-- Поле для отзыва -->
+                    <Entry x:Name="ReviewEntry" 
+               Placeholder="Напишите ваш отзыв..." />
+
+                    <Grid Grid.Row="1">
+                        <FlexLayout x:Name="RatingContainer"
+                                    Wrap="Wrap" 
+                                    AlignItems="Center"
+                                    JustifyContent="Center"
+                                    Margin="0"/>
+                    </Grid>
+
+                    <!-- Кнопка отправки -->
+                    <Button Grid.Row="3" Margin="0,10,0,0" 
+                Background="#2563EB"
+                TextColor="White"
+                FontSize="18"
+                CornerRadius="10"
+                Text="Отправить отзыв"
+                Clicked="Button_Clicked_1"/>
+                </Grid>
+            </Frame>
+            
+            <Label Text="Ваши отзывы"
+                   Margin="10,0,0,0"
+                   FontSize="24"
+                   FontAttributes="Bold"
+                   TextColor="White" />
+
+            <CollectionView x:Name="MyReviewsCollection">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame Margin="10" BackgroundColor="Transparent">
+                            <Grid RowDefinitions="auto, *" ColumnDefinitions="*, auto">
+                                <!-- Основной контент -->
+                                <StackLayout Orientation="Horizontal" Spacing="10" Grid.Column="0">
+                                    <Image Source="{Binding User.Avatar}" 
+                               HeightRequest="26" WidthRequest="26"/>
+                                    <Label Text="{Binding User.Name}"
+                               FontSize="16"/>
+                                    <Frame CornerRadius="16" Padding="0" BackgroundColor="#2563EB"
+                               WidthRequest="26" HeightRequest="26">
+                                        <Label HorizontalOptions="Center"
+                                   VerticalOptions="Center"
+                                   Text="{Binding Rating}"/>
+                                    </Frame>
+                                </StackLayout>
+
+                                <Label Grid.Row="1" Grid.Column="0"
+                           Text="{Binding Text}"/>
+
+                                <!-- Кнопка удаления -->
+                                <ImageButton x:Name="DeleteRewiews"
+                                    Grid.Column="1" Grid.RowSpan="2"
+                                 Source="close.png"  
+                                 BackgroundColor="Transparent"
+                                 WidthRequest="30"
+                                 HeightRequest="30"
+                                 VerticalOptions="Center"
+                                 HorizontalOptions="End"
+                                 Clicked="DeleteRewiews_Clicked"/>
+                            </Grid>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <Label Text="Отзывы:"
+       Margin="10,0,0,0"
+       FontSize="24"
+       FontAttributes="Bold"
+       TextColor="White" />
+            <CollectionView ItemsSource="{Binding Review}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame Margin="10" BackgroundColor="Transparent">
+                            <Grid RowDefinitions="auto, *">
+                                <StackLayout Orientation="Horizontal" Spacing="10">
+                                    <Image Source="{Binding User.Avatar}" 
+                               HeightRequest="26" WidthRequest="26"/>
+                                    <Label Text="{Binding User.Name}"
+                                           FontSize="16"/>
+                                    <Frame CornerRadius="16" Padding="0" BackgroundColor="#2563EB"
+                                           WidthRequest="26" HeightRequest="26">
+                                        <Label HorizontalOptions="Center"
+                                               VerticalOptions="Center"
+                                            Text="{Binding Rating}"/>
+                                    </Frame>
+                                </StackLayout>
+                                <Label Grid.Row="1"
+                                    Text="{Binding Text}"/>
+                            </Grid>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

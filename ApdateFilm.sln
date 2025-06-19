@@ -1,0 +1,33 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.13.35825.156 d17.13
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApdateFilmUser", "ApdateFilmUser\ApdateFilmUser.csproj", "{CE1AE299-A5E2-48C8-AB8E-F2AC137BA7CF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Api", "Api\Api.csproj", "{050B0C40-A020-4E50-B236-D46D45885B84}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CE1AE299-A5E2-48C8-AB8E-F2AC137BA7CF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CE1AE299-A5E2-48C8-AB8E-F2AC137BA7CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CE1AE299-A5E2-48C8-AB8E-F2AC137BA7CF}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{CE1AE299-A5E2-48C8-AB8E-F2AC137BA7CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CE1AE299-A5E2-48C8-AB8E-F2AC137BA7CF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CE1AE299-A5E2-48C8-AB8E-F2AC137BA7CF}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{050B0C40-A020-4E50-B236-D46D45885B84}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{050B0C40-A020-4E50-B236-D46D45885B84}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{050B0C40-A020-4E50-B236-D46D45885B84}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{050B0C40-A020-4E50-B236-D46D45885B84}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6F958EC2-F1B8-46A5-BBDF-9C13FF2D1458}
+	EndGlobalSection
+EndGlobal

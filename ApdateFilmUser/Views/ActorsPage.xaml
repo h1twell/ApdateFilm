@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:ApdateFilmUser.ViewModels"
+             x:Class="ApdateFilmUser.Views.ActorsPage"
+             xmlns:converters="clr-namespace:ApdateFilmUser.Convertes"
+             Title="ActorsPage">
+    <ContentPage.Background>
+        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+            <GradientStop Color="#02396C" Offset="0.0" />
+            <GradientStop Color="#046FD2" Offset="1" />
+        </LinearGradientBrush>
+    </ContentPage.Background>
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:ScaleConverter x:Key="ScaleConverter"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    
+    <Grid RowDefinitions="*,auto,auto">
+        <CarouselView ItemsSource="{Binding Actors}" Margin="0,20,0,0"
+    Grid.Row="0" PeekAreaInsets="60" 
+                      IndicatorView="{x:Reference indicator}">
+            <CarouselView.ItemsLayout>
+                <LinearItemsLayout Orientation="Horizontal" ItemSpacing="10"/>
+            </CarouselView.ItemsLayout>
+            <CarouselView.ItemTemplate>
+                <DataTemplate>
+                    <Frame HasShadow="True" Padding="0" CornerRadius="15"
+                           BackgroundColor="Transparent" BorderColor="Transparent" Margin="10,140,10,0">
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer 
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type vm:ActorsViewModel}}, Path=TapActorCommand}"
+                                CommandParameter="{Binding .}"/>
+                        </Frame.GestureRecognizers>
+                        <StackLayout>
+                            <!-- Фото актера -->
+                            <Image Source="{Binding Photo}" Background="Transparent" Aspect="AspectFill" 
+HeightRequest="330" WidthRequest="240"/>
+                            <Grid Background="Transparent">
+                                <BoxView Color="#80000000" VerticalOptions="End" 
+  HeightRequest="60" CornerRadius="0,0,15,15"/>
+                                <!-- Имя и фамилия -->
+                                <Label Text="{Binding Name}" 
+                                    TextColor="White" 
+                                    FontAttributes="Bold"
+                                    FontSize="14"
+                                    Margin="10,0,10,30"
+                                    VerticalOptions="End"
+                                    HorizontalOptions="Start"/>
+
+                                <Label Text="{Binding Surname}" 
+                                    TextColor="White" 
+                                    FontAttributes="Bold"
+                                    FontSize="14"
+                                    Margin="10,0,10,10"
+                                    VerticalOptions="End"
+                                    HorizontalOptions="Start"/>
+                            </Grid>
+                        </StackLayout>
+                    </Frame>
+                </DataTemplate>
+            </CarouselView.ItemTemplate>
+        </CarouselView>
+        <IndicatorView Grid.Row="1"
+                       HorizontalOptions="Center" 
+                       Margin="0,20,0,10"
+                       x:Name="indicator" 
+                       IndicatorColor="Gray" 
+SelectedIndicatorColor="White"/>
+
+        <Button Text="Назад"
+                BackgroundColor="#2563EB"
+                TextColor="White"
+                FontSize="18"
+                CornerRadius="10"
+                Margin="20,10,0,20" Grid.Row="2"
+                Command="{Binding ToBackCommand}"/>
+
+    </Grid>
+</ContentPage>

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ApdateFilmUser.Views.AuthViews.ProfilePage"
+             xmlns:vm="clr-namespace:ApdateFilmUser.ViewModels.AuthViewModels"
+             Title="Профиль">
+
+    <ContentPage.BindingContext>
+        <vm:ProfileViewModel/>
+    </ContentPage.BindingContext>
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style TargetType="Entry">
+                <Setter Property="TextColor" Value="White"/>
+                <Setter Property="BackgroundColor" Value="Transparent"/>
+                <Setter Property="PlaceholderColor" Value="LightGray"/>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <Grid>
+        <Grid.Background>
+            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                <GradientStop Color="#02396C" Offset="0.0" />
+                <GradientStop Color="#046FD2" Offset="1" />
+            </LinearGradientBrush>
+        </Grid.Background>
+        <Frame VerticalOptions="Center" HorizontalOptions="Center"
+       BackgroundColor="Transparent">
+            <StackLayout WidthRequest="310" Spacing="20">
+                <Label Text="Profile" FontAttributes="Bold"
+               TextColor="White" FontSize="25"/>
+                <Frame HorizontalOptions="Center"
+                       VerticalOptions="Center"
+                       Padding="0"
+                       CornerRadius="140"
+                       IsClippedToBounds="True"
+                       WidthRequest="140"
+                       HeightRequest="140"
+                       BorderColor="Transparent"
+                       BackgroundColor="Transparent">
+                    <Grid>
+                        <Frame HorizontalOptions="Center"
+       VerticalOptions="Center"
+       Padding="0"
+       CornerRadius="140"
+       IsClippedToBounds="True"
+       WidthRequest="140"
+       HeightRequest="140"
+       BorderColor="Transparent"
+       BackgroundColor="Gray" Opacity="0.1"/>
+                        <Image Source="{Binding Avatar}" Background="Transparent">
+                            <Image.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding SetImageCommand}"/>
+                            </Image.GestureRecognizers>
+                        </Image>
+                    </Grid>
+                    
+                </Frame>
+                <Frame CornerRadius="10" Padding="5"
+               BackgroundColor="#4DC5C5C5">
+                    <Entry Text="{Binding Surname}"
+                   Placeholder="Surname"/>
+                </Frame>
+                <Frame CornerRadius="10" Padding="5"
+               BackgroundColor="#4DC5C5C5">
+                    <Entry Text="{Binding Name}"
+                   Placeholder="Name"/>
+                </Frame>
+                <Frame CornerRadius="10" Padding="5"
+               BackgroundColor="#4DC5C5C5">
+                    <Entry Text="{Binding Email}"
+                   Placeholder="Email"/>
+                </Frame>
+                <Frame CornerRadius="10" Padding="5"
+               BackgroundColor="#4DC5C5C5">
+                    <Entry Text="{Binding Password}" 
+                   Placeholder="Password"/>
+                </Frame>
+                <Frame CornerRadius="10" Padding="5"
+               BackgroundColor="#4DC5C5C5">
+                    <DatePicker Date="{Binding Birthday}"/>
+                </Frame>
+                <Grid ColumnDefinitions="*,10,*">
+                    <Button Text="Logout" FontAttributes="Bold"
+                            Command="{Binding ToAuthCommand}" TextColor="White"
+                            Background="#D24604"/>
+                    <Button Text="Update" FontAttributes="Bold" Grid.Column="2"
+                            Command="{Binding UpdateCommand}" TextColor="White"
+                            Background="#046FD2"/>
+                </Grid>
+                
+            </StackLayout>
+        </Frame>
+    </Grid>
+</ContentPage>

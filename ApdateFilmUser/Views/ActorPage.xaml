@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:ApdateFilmUser.ViewModels"
+             x:Class="ApdateFilmUser.Views.ActorPage"
+             Title="ActorPage">
+
+    <ContentPage.Background>
+        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+            <GradientStop Color="#02396C" Offset="0.0" />
+            <GradientStop Color="#046FD2" Offset="1" />
+        </LinearGradientBrush>
+    </ContentPage.Background>
+
+    <ScrollView>
+        <StackLayout Padding="20" Spacing="15">
+            <!-- Фото актера -->
+            <Frame HeightRequest="300" WidthRequest="213"
+           CornerRadius="10"
+           HorizontalOptions="Center"
+           Padding="0"
+           BackgroundColor="LightGray">
+                <Image Aspect="Fill"
+               Source="{Binding Actor.Photo}"/>
+            </Frame>
+
+            <!-- Имя и фамилия -->
+            <HorizontalStackLayout HorizontalOptions="Center">
+                <Label Text="{Binding Actor.Name}"
+FontSize="28"
+FontAttributes="Bold"
+HorizontalOptions="Center"/>
+                <Label Text="{Binding Actor.Surname}"
+                       Margin="5,0,0,0"
+FontSize="28"
+FontAttributes="Bold"
+HorizontalOptions="Center"/>
+            </HorizontalStackLayout>
+            
+
+            <!-- Дата рождения -->
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Spacing="10">
+                <Label Text="Дата рождения:"
+               FontSize="16"
+               TextColor="Gray"/>
+                <Label Text="{Binding Actor.Birthday, StringFormat='{0:dd MMMM yyyy}'}"
+               FontSize="16"/>
+            </StackLayout>
+
+            <!-- Биография -->
+            <Label Text="Биография"
+           FontSize="20"
+           FontAttributes="Bold"/>
+            <Label Text="{Binding Actor.Bio}"
+           FontSize="16"/>
+
+            <!-- Фильмы и сериалы -->
+            <Label Text="Фильмы и сериалы"
+           FontSize="20"
+           FontAttributes="Bold"/>
+
+            <CollectionView ItemsSource="{Binding Actor.Media}"
+                   SelectionMode="Single"
+                   HeightRequest="240">
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout Orientation="Horizontal" ItemSpacing="15"/>
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame WidthRequest="150"
+                       HeightRequest="220"
+                       CornerRadius="10"
+                       Padding="0">
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer 
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type vm:ActorViewModel}}, Path=MediaSelectedCommand}"
+                                CommandParameter="{Binding .}"/>
+                            </Frame.GestureRecognizers>
+                            <Grid>
+                                <Image Source="{Binding Preview}"
+                               Aspect="Fill"
+                               HeightRequest="220"/>
+                                <BoxView Color="#80000000"
+                                 HeightRequest="50"
+                                 VerticalOptions="End"/>
+                                <Label Text="{Binding Name}"
+
+                               FontSize="14"
+                               TextColor="White"
+                               MaxLines="2"
+                               LineBreakMode="TailTruncation"
+                               Margin="0,0,0,15"
+                               HorizontalOptions="Center"
+                               VerticalOptions="End"/>
+                            </Grid>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </StackLayout>
+    </ScrollView>
+</ContentPage>

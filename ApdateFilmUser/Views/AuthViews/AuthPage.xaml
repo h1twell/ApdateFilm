@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ApdateFilmUser.Views.AuthViews.AuthPage"
+             xmlns:viewmodel="clr-namespace:ApdateFilmUser.ViewModels.AuthViewModels"
+             Title="Авторизация">
+    <ContentPage.BindingContext>
+        <viewmodel:AuthViewModel/>
+    </ContentPage.BindingContext>
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style TargetType="Entry">
+                <Setter Property="TextColor" Value="White"/>
+                <Setter Property="BackgroundColor" Value="Transparent"/>
+                <Setter Property="PlaceholderColor" Value="LightGray"/>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    
+    <Grid>
+        <Grid.Background>
+            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                <GradientStop Color="#02396C" Offset="0.0" />
+                <GradientStop Color="#046FD2" Offset="1" />
+            </LinearGradientBrush>
+        </Grid.Background>
+        <Frame VerticalOptions="Center" HorizontalOptions="Center"
+               BackgroundColor="#CC000000">
+            <StackLayout WidthRequest="310" Spacing="20">
+                <Label Text="Sign In" FontAttributes="Bold"
+                       TextColor="White" FontSize="25"/>
+                <Frame CornerRadius="10" Padding="5"
+                       BackgroundColor="#4DC5C5C5">
+                    <Entry Text="{Binding Email}"
+                           Placeholder="Email"/>
+                </Frame>
+                <Frame CornerRadius="10" Padding="5"
+                       BackgroundColor="#4DC5C5C5">
+                    <Entry Text="{Binding Password}" 
+                           Placeholder="Password"/>
+                </Frame>
+                <Button Text="Sign In" FontAttributes="Bold"
+                        Command="{Binding SignInCommand}"
+                        Background="#046FD2"/>
+                <StackLayout Orientation="Horizontal"
+                             HorizontalOptions="Center">
+                    <Label Text="You are a new user? " TextColor="White" FontSize="12"/>
+                    <Label>
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="Sign Up" 
+                                      FontAttributes="Bold" 
+                                      TextColor="White" 
+                                      FontSize="12"
+                                      TextDecorations="Underline" />
+                            </FormattedString>
+                        </Label.FormattedText>
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding ToRegistersCommand}" />
+                        </Label.GestureRecognizers>
+                    </Label>
+                </StackLayout>
+            </StackLayout>
+        </Frame>
+    </Grid>
+</ContentPage>
